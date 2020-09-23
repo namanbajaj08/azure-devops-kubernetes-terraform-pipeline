@@ -10,21 +10,26 @@ stages:
       - job : Job1
         steps:
          - bash : echo Build Job1
+         - bash : $(PipelineVariable)
       - job : Job2
         steps:
          - bash : echo Build Job2
   - stage: DEV
+    variables:
+      environment: DEV 
     dependsOn: Build
     jobs:
       - job : DEVJob1
         steps:
-         - bash : echo DEVJob1
+         - bash : echo $(environment)Job1
   - stage: QA
+    variables:
+      environment: QA 
     dependsOn: Build
     jobs:
       - job : QAJob1
         steps:
-         - bash : echo QAJob1
+         - bash : echo $(environment)Job1
   - stage: PROD
     dependsOn:
     - Dev
