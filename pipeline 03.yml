@@ -20,6 +20,7 @@ stages:
           steps:
           - script: echo deploy to Dev
 - stage: QADeploy
+  dependsOn: DevDeploy
   jobs:
   - deployment: QADeployJob
     environment: QA
@@ -29,6 +30,7 @@ stages:
           steps:
           - script: echo deploy to QA
 - stage: ProdDeploy
+  dependsOn: QADeploy
   jobs:
     - deployment: ProdDeployJob
       environment: Prod
